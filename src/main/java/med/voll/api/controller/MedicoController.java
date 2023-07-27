@@ -28,7 +28,7 @@ public class MedicoController {
     }
 
     @GetMapping
-    public Page<DadosListagemMedico> listar(Pageable paginacao){
+    public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         Page<Medico> medicos = mr.findAll(paginacao);
         Page<DadosListagemMedico> medicoList = medicos.map(medico -> new DadosListagemMedico(medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade()));
 
