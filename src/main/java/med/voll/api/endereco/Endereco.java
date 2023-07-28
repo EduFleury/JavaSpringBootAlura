@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.medico.DadosAtualizacaoMedico;
 
 @Embeddable
 @Getter
@@ -28,5 +29,29 @@ public class Endereco {
         this.uf = endereco.uf();
         this.complemento = endereco.complemento();
         this.numero = endereco.numero();
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
+        if(dados.endereco().logradouro()!=null){
+            this.logradouro = dados.endereco().logradouro();
+        }
+        if(dados.endereco().bairro()!=null){
+            this.bairro = dados.endereco().bairro();
+        }
+        if(dados.endereco().cep()!=null){
+            this.cep = dados.endereco().cep();
+        }
+        if(dados.endereco().cidade()!=null){
+            this.cidade=dados.endereco().cidade();
+        }
+        if(dados.endereco().uf()!=null){
+            this.uf=dados.endereco().uf();
+        }
+        if(dados.endereco().complemento()!=null){
+            this.complemento=dados.endereco().complemento();
+        }
+        if(dados.endereco().numero()!=null){
+            this.numero=dados.endereco().numero();
+        }
     }
 }
