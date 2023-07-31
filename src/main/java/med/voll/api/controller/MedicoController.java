@@ -26,7 +26,7 @@ public class MedicoController {
 
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-        Page<Medico> medicos = mr.findAll(paginacao);
+        Page<Medico> medicos = mr.findAllByAtivoTrue(paginacao);
         Page<DadosListagemMedico> medicoList = medicos.map(medico -> new DadosListagemMedico(medico.getId(), medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade()));
 
         //return mr.findAll().stream().map(DadosListagemMedico::new).toList(); TEM ESSA OPÇÃO TBM
@@ -39,9 +39,16 @@ public class MedicoController {
         var medico = mr.getReferenceById(dados.id());
         medico.atualizarInformacoes(dados);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/Exclusao{id}")
     @Transactional
     public void excluir(@PathVariable long id){
         mr.deleteById(id);
+    }
+
+    @DeleteMapping("/ExclusaoLogica{id}")
+    @Transactional
+    public void excluirLogico(@PathVariable long id){
+        var medico = mr.getReferenceById(id);
+        medico.ExcluirLogico();
     }
 }
